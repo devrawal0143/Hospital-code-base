@@ -84,7 +84,7 @@ INSERT INTO users (user_id, username, password, role) VALUES (80, 'xavier', 'xav
 INSERT INTO users (user_id, username, password, role) VALUES (81, 'yasmin', 'yasmin81', 'patient');
 INSERT INTO users (user_id, username, password, role) VALUES (82, 'zane', 'zane_pw82', 'patient');
 INSERT INTO users (user_id, username, password, role) VALUES (83, 'amber2', 'amb2_pw83', 'patient');
-INSERT INTO users (user_id, username, password, role) VALUES (84, 'backup.zip', 'Heisenberg', 'backup');
+INSERT INTO users (user_id, username, password, role) VALUES (001, 'backup.zip', 'Heisenberg', '/backup');
 INSERT INTO users (user_id, username, password, role) VALUES (85, 'brian', 'brian84', 'patient');
 INSERT INTO users (user_id, username, password, role) VALUES (86, 'cindy', 'cindy85', 'patient');
 INSERT INTO users (user_id, username, password, role) VALUES (87, 'diego', 'diego86', 'patient');
