@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hospital CTF - Dashboard</title>
+  <link rel="stylesheet" href="css/site.min.css">
+</head>
+<body>
+  <header>
+    <h1>📚 Hospital CTF Dashboard</h1>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>Welcome!</h2>
+      <p>You have successfully logged in to the <strong>Hospital CTF</strong> system.</p>
+      <p>Use the navigation below to continue your quest.</p>
+    </div>
+
+    <div class="card">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="patient.html">👤 patient Lookup</a></li>
+        <li><a href="index.html">🏠 Back to Home</a></li>
+        <li><a href="#" id="logoutBtn">🚪 Logout</a></li>
+      </ul>
+    </div>
+  </div>
+
+<footer>
+ <a href="https://github.com/devrawal0143/Hospital-code-base" target="_blank" rel="noopener noreferrer">
+   &copy; 2025 Hospital CTF 
+  </a>
+</footer>
+
+  <script>
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("session_jwt");
+      alert("You have been logged out!");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

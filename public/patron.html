@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hospital CTF - patient Lookup</title>
+  <link rel="stylesheet" href="css/site.min.css">
+</head>
+<body>
+  <header>
+    <h1>👤 patient Lookup</h1>
+  </header>
+
+  <div class="container">
+    <form id="patientForm">
+      <input type="text" id="patientId" placeholder="Enter patient ID" required>
+      <button type="submit">Search</button>
+    </form>
+
+    <div id="patientResult" class="card" style="display:none;"></div>
+
+    <p>⬅ Back to <a href="index.html">Home</a></p>
+  </div>
+
+<footer>
+ <a href="https://github.com/devrawal0143/Hospital-code-base" target="_blank" rel="noopener noreferrer">
+   &copy; 2025 Hospital CTF 
+  </a>
+</footer>
+
+<script>
+  const form = document.getElementById("patientForm");
+  const resultDiv = document.getElementById("patientResult");
+
+  function showMessage(html) {
+    resultDiv.style.display = "block";
+    resultDiv.innerHTML = html;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const id = document.getElementById("patientId").value.trim();
+    if (!id) return;
+
+    const token = localStorage.getItem("session_jwt");
+    if (!token) {
+      alert("You must log in first!");
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/patient/${encodeURIComponent(id)}`, {
+        headers: { "Authorization": "Bearer " + token }
+      });
+
+      if (res.status === 401) {
+        showMessage('<p style="color:red;">Unauthorized — invalid token or insufficient privileges.</p>');
+        return;
+      }
+
+      if (res.status === 404) {
+        showMessage('<p style="color:red;">No patient found.</p>');
+        return;
+      }
+
+      if (!res.ok) {
+        showMessage('<p style="color:red;">Server error. Try again later.</p>');
+        return;
+      }
+
+      const data = await res.json();
+
+      // Only render non-sensitive visible fields
+      const safeHtml = `
+        <h3>patient Info</h3>
+        <p><strong>ID:</strong> ${String(data.id || '')}</p>
+        <p><strong>Name:</strong> ${String(data.name || '')}</p>
+        <p><strong>Notes:</strong> ${String(data.notes || '')}</p>
+        <p style="color:gray;font-size:0.9em;">Sensitive details are not shown here.</p>
+      `;
+
+      showMessage(safeHtml);
+
+    } catch (err) {
+      console.error(err);
+      showMessage('<p style="color:red;">Network error. Check console for details.</p>');
+    }
+  });
+</script>
+
+</body>
+</html>
